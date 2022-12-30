@@ -1,4 +1,5 @@
   <odoo>
+<!--A. car model-->
             <record id="car_car_action" model="ir.actions.act_window">
                 <field name="name">Car Car action</field>
                 <field name="res_model">car.car</field>
@@ -30,24 +31,54 @@
                                         </h1>
                                     </div>
                                     <group>
-                                                <field name="horse_power"></field>
-                                                <field name="driver_id" />
+                                                <field name="door_number"></field>
+                                                <field name="horse_power"/>
+                                                <field name="driver_id"  attrs="{'readonly': [('door_number','=',4)], 'required' :[('name','=','abc')] }"/>
                                                 <field name="feature_ids" widget="many2many_tags"/>
                                                 <field name="total_speed"></field>
-<!--                                        <field name="product_id" attrs="{'readonly': [('has_moves', '=', True)]}" domain="[('bom_ids', '!=', False), ('bom_ids.active', '=', True), ('bom_ids.type', '=', 'normal')]"/>-->
                                     </group>
                             </sheet>
                         </form>
                     </field>
                 </record>
 
-
+<!--B. parking model-->
             <record id="parking_parking_action" model="ir.actions.act_window">
                 <field name="name">Parking Parking action</field>
                 <field name="res_model">parking.parking</field>
                 <field name="view_mode">tree,form</field>
             </record>
 
+            <record id="parking_parking_model_view_tree" model="ir.ui.view">
+            <field name="name">Parking Parking</field>
+            <field name="model">parking.parking</field>
+            <field name="arch" type="xml">
+                <tree string="Channel">
+                    <field name="name"/>
+                    <field name="car_ids"/>
+                </tree>
+            </field>
+            </record>
+
+            <record id="parking_parking_model_view_form" model="ir.ui.view"><!-- Write your comment-->
+                    <field name="name">Parking Parking</field>
+                    <field name="model">parking.parking</field>
+                    <field name="arch" type="xml">
+                        <form string="Parking Parking">
+                            <sheet>
+                                    <div class="oe_title">
+                                        <h1>
+                                            <field name="name"></field>
+                                        </h1>
+                                    </div>
+                                    <group>
+                                                <field name="car_ids"></field>
+                                    </group>
+                            </sheet>
+                        </form>
+                    </field>
+            </record>
+<!--C. Menu-->
           <menuitem id="root" name="My Module">
             <menuitem id="car_menu" name="Cars Menu">
                 <menuitem id="car_action_menu" action="car_car_action" name = "Cars"/>

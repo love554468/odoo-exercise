@@ -9,7 +9,7 @@ class Car_Car(models.Model):
     horse_power = fields.Integer(string='Horse Power')
     door_number = fields.Integer(string='Door Number')
     driver_id = fields.Many2one('res.partner', string='Driver')
-    parking_id = fields.Many2one('parking.parking', string='Parking')
+    parking_id = fields.Many2one('parking.parking', string='Parking', ondelete="cascade")
     feature_ids = fields.Many2many('car.feature', string='Feature')
     total_speed = fields.Integer(string='Total Speed', compute="_compute_total_speed")
     status = fields.Selection(
