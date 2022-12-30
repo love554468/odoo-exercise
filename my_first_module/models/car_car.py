@@ -23,3 +23,4 @@ class Car_Car(models.Model):
     def _compute_total_speed(self):
         for record in self:
             record.total_speed = record.horse_power * 5
+    # test
