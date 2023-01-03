@@ -11,6 +11,7 @@
             <field name="model">car.car</field>
             <field name="arch" type="xml">
                 <tree string="Channel">
+                    <field name="car_sequence"></field>
                     <field name="name"/>
                     <field name="horse_power"/>
                     <field name="door_number" />
@@ -25,6 +26,9 @@
                     <field name="arch" type="xml">
                         <form string="Car Car">
                             <sheet>
+                                    <group>
+                                        <field name="car_sequence"></field>
+                                    </group>
                                     <div class="oe_title">
                                         <h1>
                                             <field name="name"></field>
@@ -80,7 +84,7 @@
             </record>
 <!--C. Menu-->
           <menuitem id="root" name="My Module">
-            <menuitem id="car_menu" name="Cars Menu">
+            <menuitem id="car_menu" name="Cars Menu" groups="group_super_manager">
                 <menuitem id="car_action_menu" action="car_car_action" name = "Cars"/>
                 <menuitem id="parking_parking_menu" action="parking_parking_action" name = "Parking"/>
             </menuitem>

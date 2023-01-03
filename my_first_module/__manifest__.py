@@ -24,7 +24,9 @@
 
     # always loaded
     'data': [
+        'security/car_management_access.xml',
         'security/ir.model.access.csv',
+        'data/car_sequence.xml',
         'views/cars.xml',
         # 'views/views.xml',
         # 'views/templates.xml',
