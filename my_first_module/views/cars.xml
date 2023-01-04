@@ -84,9 +84,10 @@
             </record>
 <!--C. Menu-->
           <menuitem id="root" name="My Module">
-            <menuitem id="car_menu" name="Cars Menu" groups="group_super_manager">
+            <menuitem id="car_menu" name="Cars Menu" >
+<!--                #groups="group_super_manager"-->
                 <menuitem id="car_action_menu" action="car_car_action" name = "Cars"/>
-                <menuitem id="parking_parking_menu" action="parking_parking_action" name = "Parking"/>
+                <menuitem id="parking_parking_menu" action="parking_parking_action" name = "Parking" groups="group_user"/>
             </menuitem>
           </menuitem>
   </odoo>

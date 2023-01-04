@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_car_car,access_car_car,model_car_car,base.group_user,1,1,1,1
 access_car_feature,access_car_feature,model_car_feature,base.group_user,1,1,1,1
-access_parking_parking,access_parking_parking,model_parking_parking,base.group_user,1,1,1,1
+access_parking_parking,access_parking_parking,model_parking_parking,group_user,1,1,1,1
+access_car_car_user,access_car_car_user,model_car_car,group_user,1,0,0,0
+access_car_car_super_manager,access_car_car_super_manager,model_car_car,group_super_manager,1,1,1,1
+
