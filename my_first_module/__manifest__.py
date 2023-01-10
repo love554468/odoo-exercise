@@ -28,6 +28,7 @@
         'security/ir.model.access.csv',
         'data/car_sequence.xml',
         'views/cars.xml',
+        'wizard/car_report_wizard_view.xml',
         # 'views/views.xml',
         # 'views/templates.xml',
     ],

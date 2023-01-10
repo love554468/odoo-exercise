@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_inheritence_hr_inheritence,hr_inheritence.hr_inheritence,model_hr_inheritence_hr_inheritence,base.group_user,1,1,1,1

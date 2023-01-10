@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class Car_Feature(models.Model):
+class CarFeature(models.Model):
     _name = 'car.feature'
     _description = 'Car Feature'
 
