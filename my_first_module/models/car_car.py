@@ -1,7 +1,7 @@
 from odoo import fields, models, api, _
 
 
-class Car_Car(models.Model):
+class CarCar(models.Model):
     _name = 'car.car'
     _description = 'Car Car'
 
@@ -18,7 +18,22 @@ class Car_Car(models.Model):
         , default='new'
     )
 
+    image = fields.Binary(string="Image")
+    car_price = fields.Float(string="Car Price")
+
     car_sequence = fields.Char(string='Car ID', required=True, readonly=True, default=lambda self: _('New'))
+
+    total_price = fields.Float(compute="_compute_total_price") # total parking price + car price
+    #
+    @api.depends("car_price", "parking_id")
+    def _compute_total_price(self):
+        for record in self:
+            record.total_price = record.car_price + record.parking_id.parking_price
+
+    # @api.depends("car_price")
+    # def _compute_total_price(self):
+    #     for record in self:
+    #         record.total_price = record.car_price
 
     @api.model
     def create(self, vals_list):
@@ -30,7 +45,7 @@ class Car_Car(models.Model):
         #     print('123')
         if vals_list.get('car_sequence', _('New')) == _('New'):
             vals_list['car_sequence'] = self.env['ir.sequence'].next_by_code('car.car.sequence') or _('New')
-        res = super(Car_Car, self).create(vals_list)
+        res = super(CarCar, self).create(vals_list)
         return res
 
 

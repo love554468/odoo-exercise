@@ -3,49 +3,144 @@
             <record id="car_car_action" model="ir.actions.act_window">
                 <field name="name">Car Car action</field>
                 <field name="res_model">car.car</field>
-                <field name="view_mode">tree,form</field>
+                <field name="view_mode">graph,pivot,kanban,tree,form</field>
             </record>
 
             <record id="car_car_model_view_tree" model="ir.ui.view">
-            <field name="name">Cars</field>
-            <field name="model">car.car</field>
-            <field name="arch" type="xml">
-                <tree string="Channel">
-                    <field name="car_sequence"></field>
-                    <field name="name"/>
-                    <field name="horse_power"/>
-                    <field name="door_number" />
-                    <field name="driver_id" />
-                </tree>
-            </field>
+                <field name="name">Cars</field>
+                <field name="model">car.car</field>
+                <field name="arch" type="xml">
+                    <tree string="Channel">
+                        <field name="car_sequence"></field>
+                        <field name="name"/>
+                        <field name="horse_power"/>
+                        <field name="door_number" />
+                        <field name="driver_id" />
+                        <field name="total_price"/>
+                    </tree>
+                </field>
             </record>
 
-                 <record id="car_car_model_view_form" model="ir.ui.view"><!-- Write your comment-->
-                    <field name="name">Cars</field>
-                    <field name="model">car.car</field>
-                    <field name="arch" type="xml">
-                        <form string="Car Car">
-                            <sheet>
-                                    <group>
-                                        <field name="car_sequence"></field>
-                                    </group>
-                                    <div class="oe_title">
-                                        <h1>
-                                            <field name="name"></field>
-                                        </h1>
-                                    </div>
-                                    <group>
+             <record id="car_car_model_view_form" model="ir.ui.view"><!-- Write your comment-->
+                <field name="name">Cars</field>
+                <field name="model">car.car</field>
+                <field name="arch" type="xml">
+                    <form string="Car Car">
+                        <sheet>
+                                <field name="car_sequence"></field>
+                                <div class="oe_title">
+                                    <h1>
+                                        <field name="name"></field>
+                                    </h1>
+                                 </div>
+                                <group>
+                                        <group>
                                                 <field name="door_number"></field>
                                                 <field name="horse_power"/>
-                                                <field name="driver_id"  attrs="{'readonly': [('door_number','=',4)], 'required' :[('name','=','abc')] }"/>
-                                                <field name="feature_ids" widget="many2many_tags"/>
-                                                <field name="total_speed"></field>
-                                    </group>
-                            </sheet>
-                        </form>
-                    </field>
-                </record>
+                                                <field name="car_price"></field>
+                                        </group>
 
+                                        <group>
+                                            <field name="driver_id"  attrs="{'readonly': [('door_number','=',4)], 'required' :[('name','=','abc')] }"/>
+                                            <field name="feature_ids" widget="many2many_tags"/>
+                                            <field name="total_speed"></field>
+                                        </group>
+                                </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+            <record id="car_car_model_search_view" model="ir.ui.view">
+                <field name="name">car.car.search</field>
+                <field name="model">car.car</field>
+                <field name="arch" type="xml">
+                    <search string="Car Car">
+<!--                            <field name="name" string="Name" />-->
+<!--                            <field name="bedrooms"/>-->
+<!--                            <field name="postcode"/>-->
+<!--                            <field name="selling_price"/>-->
+                        <separator/>
+<!--                            <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>-->
+<!--                            <filter string="State_filter" name="State_filter" domain="-->
+<!--                                                                                        ['|'-->
+<!--                                                                                            , ('state', '=', 'new')-->
+<!--                                                                                            , ('state', '=', 'offerReceived')]"-->
+<!--                            />-->
+                        <filter string="My Car" name="my_car_filter" domain="[('driver_id.user_ids', '=', uid )]"/>
+                        <filter string="Had Car" name="my_car_filter" domain="[('driver_id', '!=', False )]"/>
+
+
+                        <group expand="1" string="Group By">
+                            <filter string="Status" name="postcode_groupby" context="{'group_by':'status', 'residual_visible':True}"/>
+                            <filter string="Driver ID" name="bedrooms_groupby" context="{'group_by':'driver_id', 'residual_visible':True}"/>
+<!--                                <filter string="Living Area" name="living_area_groupby" context="{'group_by':'living_area', 'residual_visible':True}"/>-->
+<!--                                <filter string="State" name="state_groupby" context="{'group_by':'state', 'residual_visible':True}"/>-->
+                        </group>
+    <!--                    <group expand="2" string="Group By2">-->
+    <!--                        <filter string="Bedrooms" name="bedrooms_groupby" context="{'group_by':'bedrooms', 'residual_visible':True}"/>-->
+    <!--                    </group>-->
+                    </search>
+                </field>
+            </record>
+
+           <record id="car_car_model_kanban_view" model="ir.ui.view">
+                <field name="name">car.car.kanban</field>
+                <field name="model">car.car</field>
+                <field name="arch" type="xml">
+                    <kanban>
+                        <field name="name"/>
+                        <field name="horse_power"/>
+                        <field name="image"/>
+                        <field name="status"/>
+                        <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <field name="name"/>
+<!--                                #t-if="record.state == 'accepted'"-->
+                                <div >
+                                    <span>Horse Power:</span>
+                                    <field name="horse_power"/>
+                                </div>
+<!--                                <div >-->
+<!--                                    <span>Image:</span>-->
+<!--                                    <field name="image"/>-->
+<!--                                </div>-->
+                                <div >
+                                    <span>Status:</span>
+                                    <field name="status"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                    </kanban>
+                </field>
+            </record>
+
+            <record id="car_car_model_view_pivot" model="ir.ui.view">
+                <field name="name">car.car.pivot</field>
+                <field name="model">car.car</field>
+                <field name="priority">60</field>
+                <field name="arch" type="xml">
+                    <pivot string="Car Analysis" sample="1">
+                        <field name="create_date" interval="month" type="col"/>
+                        <field name="horse_power" type="row"/>
+                        <field name="door_number" type="measure"/>
+                    </pivot>
+                </field>
+            </record>
+
+            <record id="car_car_model_view_graph" model="ir.ui.view">
+                <field name="name">car.car.graph</field>
+                <field name="model">car.car</field>
+                <field name="arch" type="xml">
+                    <graph string="Car Car Analysis" sample="1">
+                        <field name="name" />
+<!--                        <field name="door_number" />-->
+                        <field name="total_price"/>
+                    </graph>
+                </field>
+            </record>
 <!--B. parking model-->
             <record id="parking_parking_action" model="ir.actions.act_window">
                 <field name="name">Parking Parking action</field>
@@ -54,33 +149,33 @@
             </record>
 
             <record id="parking_parking_model_view_tree" model="ir.ui.view">
-            <field name="name">Parking Parking</field>
-            <field name="model">parking.parking</field>
-            <field name="arch" type="xml">
-                <tree string="Channel">
-                    <field name="name"/>
-                    <field name="car_ids"/>
-                </tree>
-            </field>
+                <field name="name">Parking Parking</field>
+                <field name="model">parking.parking</field>
+                <field name="arch" type="xml">
+                    <tree string="Channel">
+                        <field name="name"/>
+                        <field name="car_ids" widget="many2many_tags"/>
+                    </tree>
+                </field>
             </record>
 
             <record id="parking_parking_model_view_form" model="ir.ui.view"><!-- Write your comment-->
-                    <field name="name">Parking Parking</field>
-                    <field name="model">parking.parking</field>
-                    <field name="arch" type="xml">
-                        <form string="Parking Parking">
-                            <sheet>
-                                    <div class="oe_title">
-                                        <h1>
-                                            <field name="name"></field>
-                                        </h1>
-                                    </div>
-                                    <group>
-                                                <field name="car_ids"></field>
-                                    </group>
-                            </sheet>
-                        </form>
-                    </field>
+                <field name="name">Parking Parking</field>
+                <field name="model">parking.parking</field>
+                <field name="arch" type="xml">
+                    <form string="Parking Parking">
+                        <sheet>
+                                <div class="oe_title">
+                                    <h1>
+                                        <field name="name"></field>
+                                    </h1>
+                                </div>
+                                <group>
+                                            <field name="car_ids"></field>
+                                </group>
+                        </sheet>
+                    </form>
+                </field>
             </record>
 <!--C. Menu-->
           <menuitem id="root" name="My Module">
@@ -88,6 +183,7 @@
 <!--                #groups="group_super_manager"-->
                 <menuitem id="car_action_menu" action="car_car_action" name = "Cars"/>
                 <menuitem id="parking_parking_menu" action="parking_parking_action" name = "Parking" groups="group_user"/>
+                <menuitem id="car_report_menu" action="my_first_module.car_report_action" name = "Car Report" />
             </menuitem>
           </menuitem>
   </odoo>
